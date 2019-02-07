@@ -1,0 +1,49 @@
+import React from 'react';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
+
+class Timer extends React.Component {
+    state = {
+        target_datetime:null, 
+        countdown_string:"",
+        offsets:null
+    }
+    constructor(props){
+        super(props);
+        this.diffTime = this.diffTime.bind(this);
+    }
+    componentDidMount(){
+        // console.log(this.props.target_time, dayjs().to(dayjs(this.props.target_time.seconds*1000), false) );
+        this.setState({target_datetime:this.props.target_time.seconds})
+        this.diffTime(this.props.target_time.seconds);
+        this.interval = setInterval( ()=>{this.diffTime(this.props.target_time.seconds)}, 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+    diffTime(target){
+        let date = new Date();
+        let targetDate = new Date(target*1000);
+        let diff = targetDate - date;
+        let days = Math.floor((diff % (1000 * 60 * 60 * 24 * 24)) / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        let string = days+'days, '+hours+'hours, '+minutes+'minutes, '+seconds+'seconds';
+        if(diff <= 0){
+            string = "IT HAPPENED!";
+        }
+        this.setState({countdown_string:string});
+        // console.log(string);
+
+    }
+    render(){
+        return(
+            <h3>{this.state.countdown_string}</h3>
+        )
+    }
+}
+
+export { Timer }

@@ -1,0 +1,29 @@
+@import url('./fonts/inter.css');
+*{ font-family: 'Inter', sans-serif; }
+.formWrap{
+  background:purple;
+  color:#fff;
+  display: flex;
+  flex-direction:column;
+  height:100%;
+  align-items:center;
+  justify-content: space-around;
+  padding:5rem;
+}
+input[type="text"]{
+  padding:1.2rem;
+  border:2px solid #fff;
+  background:transparent;
+  margin:4% 0;
+  width:50%;
+}
+input::placeholder {
+  color:#fff;
+  font-style:italic;
+}
+input{
+  display: inline-block;
+}
+#root{
+  height: 100%;
+}

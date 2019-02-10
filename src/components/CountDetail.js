@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Timer} from './Timer';
+import CalendarEvent from './CalendarEvent';
+
+
 const CountDetail = props => {
     // state = {
     //     config:null
@@ -19,6 +22,7 @@ const CountDetail = props => {
             <p>{props.config.description}</p>
             <p>{props.config.location}</p>
             <img src={props.config.bg_image}/>
+            <CalendarEvent date={props.config.target_time} title={props.config.headline} desc={props.config.description} ></CalendarEvent>
         </div>
     )
 }

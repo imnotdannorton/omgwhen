@@ -120,18 +120,38 @@ class Create extends React.Component {
             goLink = <button><Link to={this.state.go_link}>View</Link></button>
         }
         return (
-            <form onSubmit={this.submitForm}>
-                <input type="text" name="headline" placeholder="headline" onChange={this.updateInput}></input>
-                {/* <input type="text" name="target_time" placeholder="time" onChange={this.updateInput}></input> */}
-                <DateTimePicker onChange={this.handleDate} value={this.state.target_time}></DateTimePicker>
-                <input type="text" name="description" placeholder="description" onChange={this.updateInput}></input>
-                <input type="text" name="slug" placeholder="slug" onChange={this.updateInput}></input>
-                <input type="text" name="style" placeholder="style" onChange={this.updateInput}></input>
-                <input type="file" ref={this.fileInput} name="bg_image" placeholder="background" onChange={this.updateInput}></input>
-                <input type="text" name="custom_styles" placeholder="custom" onChange={this.updateInput}></input>
-                <button type="submit">Create</button>
-                {goLink}
-            </form>
+            <div class="formWrap">
+                <h1>It's All Happening. Create Your Event:</h1>
+                <form onSubmit={this.submitForm}>
+                    <div className="headline inputHolder">
+                        <label for="headline">What's going on?</label>
+                        <input type="text" name="headline" placeholder="headline" onChange={this.updateInput}></input>
+                    </div>
+                    <div className="timestamp inputHolder">
+                        <label for="target_time">When?</label>
+                        <DateTimePicker onChange={this.handleDate} value={this.state.target_time}></DateTimePicker>
+                    </div>
+                    <div className="description inputHolder">
+                        <label for="description">Y Tho?</label>
+                        <textarea type="text" name="description" placeholder="description" onChange={this.updateInput}></textarea>
+                    </div>
+                    
+                    <div className="slug inputHolder">
+                        <label for="slug">Give it a home. ex: omgwhen.io/until<em>my-awesome-party</em></label>
+                        <input type="text" name="slug" placeholder="my-custom-link" onChange={this.updateInput}></input>
+                    </div>
+                    <div className="image inputHolder">
+                        <label for="bg_image">Add an image and you're good to go</label>
+                        <input type="file" ref={this.fileInput} name="bg_image" placeholder="background" onChange={this.updateInput}></input>
+                    </div>
+                    {/* <input type="text" name="style" placeholder="style" onChange={this.updateInput}></input>
+                    
+                    <input type="text" name="custom_styles" placeholder="custom" onChange={this.updateInput}></input> */}
+                    <button type="submit">Create</button>
+                    {goLink}
+                </form>
+            </div>
+            
         )
     }
 }

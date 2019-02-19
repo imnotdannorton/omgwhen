@@ -147,7 +147,7 @@ class Create extends React.Component {
                     </div>
                     
                     <div className="slug inputHolder">
-                        <label for="slug">Give it a home. ex: omgwhen.io/until<em>my-awesome-party</em></label>
+                        <label for="slug">Give it a home. <small>ex: omgwhen.io/until/<em>my-awesome-party</em></small></label>
                         <input type="text" name="slug" placeholder="my-custom-link" onChange={this.updateInput}></input>
                     </div>
                     <ImageSelect handleGiphy={this.handleGiphy} fileRef={this.fileHandler} updateInput={this.updateInput}></ImageSelect>

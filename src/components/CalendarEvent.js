@@ -26,11 +26,24 @@ class CalendarEvent extends React.Component {
         console.log(this.props);
         let myDateObj = new Date(dateTime);
         let year = myDateObj.getFullYear();
-        let month = myDateObj.getMonth();
-        let day = myDateObj.getDay();
-        // todo: incorporate location and link
-        // [year][month][day] then this time format: T224000Z
-        let gcal = 'https://calendar.google.com/calendar/r/eventedit?text='+this.props.title+'&dates='+dateTime+'Z/'+(dateTime+1536000)+'Z&details='+this.props.desc+'&sf=true&output=xml';
+        let month = myDateObj.getMonth()+1;
+        if(month < 10){
+            month = "0"+month;
+        }
+        
+        let day = myDateObj.getDate();
+        let untilDay = day+1;
+        if(untilDay < 10){
+            untilDay = "0"+untilDay;
+        }
+        if(day < 10){
+            day = "0"+day;
+        }
+        // get timezone info into google friendly format
+        let tzFormat = "T"+myDateObj.toISOString().split('T')[1].replace(/:/g, "").replace(".", "").replace("000Z", "")
+        let concatDate = year.toString()+month.toString()+day.toString();
+        let untilDate = year.toString()+month.toString()+untilDay.toString();
+        let gcal = 'https://calendar.google.com/calendar/r/eventedit?text='+this.props.title+'&dates='+concatDate+tzFormat+'Z/'+untilDate+tzFormat+'Z&details='+this.props.desc+'&sf=true&output=xml';
         let cal = new ICS.VCALENDAR();
         cal.addProp('VERSION', 1) // Number(2) is converted to '2.0'
         cal.addProp('PRODID', 'OMGWHEN');
@@ -42,7 +55,6 @@ class CalendarEvent extends React.Component {
         event.addProp('SUMMARY', this.props.title);
         event.addProp('DESCRIPTION', this.props.desc)
         cal.addComponent(event);
-        console.log(cal, cal.toString());
         this.setState({ics:cal.toString(), gcal:gcal});
 
     }

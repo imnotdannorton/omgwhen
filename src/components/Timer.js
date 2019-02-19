@@ -26,12 +26,14 @@ class Timer extends React.Component {
     diffTime(target){
         let date = new Date();
         let targetDate = new Date(target*1000);
+        console.log(targetDate.toISOString());
         let diff = targetDate - date;
+        let months = Math.floor((diff % (1000 * 60 * 60 * 24 * 24 * 30)) / (1000 * 60 * 60 * 24 * 30));
         let days = Math.floor((diff % (1000 * 60 * 60 * 24 * 24)) / (1000 * 60 * 60 * 24));
         let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        let string = days+'days, '+hours+'hours, '+minutes+'minutes, '+seconds+'seconds';
+        let string = months+'months' + days+'days, '+hours+'hours, '+minutes+'minutes, '+seconds+'seconds';
         if(diff <= 0){
             string = "IT HAPPENED!";
         }

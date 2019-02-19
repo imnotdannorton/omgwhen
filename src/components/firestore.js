@@ -9,7 +9,6 @@ var config = {
     storageBucket: process.env.REACT_APP_FS_STORAGEBUCKET,
     messagingSenderId: process.env.REACT_APP_FS_MESSAGE_SENDER_ID
 };
-console.log(process.env, config);
 firebase.initializeApp(config);
 
 export default firestore;

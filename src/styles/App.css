@@ -38,7 +38,10 @@ input::placeholder, textarea::placeholder {
   border-bottom:2px solid transparent;
   margin-right: 10px;
 }
-.inputHolder.image strong.active{
+.inputHolder.image strong:hover{
+  cursor: pointer;
+}
+.inputHolder.image strong.active, .inputHolder.image strong:hover{
   border-bottom:2px solid #fff;
 }
 .imageOptsWrap{
@@ -123,7 +126,7 @@ input{
 #root{
   height: 100%;
 }
-.formWrap button.createBtn{
+.formWrap button.createBtn, .countdown-wrapper a.createNew button{
   padding:1.2rem;
   border:2px solid #fff;
   background:transparent;
@@ -132,7 +135,7 @@ input{
   display: block;
   color:#FFF;
 }
-.formWrap button.createBtn:hover{
+.formWrap button.createBtn:hover, .countdown-wrapper a.createNew button:hover{
   cursor: pointer;
   color:purple;
   background:#fff;
@@ -140,4 +143,38 @@ input{
 .calendarLinks a{
   display: inline-block;
   margin-right: 2%;
+}
+.countdown-wrapper{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+.countdown-wrapper a.createNew{
+  position: absolute;
+  right:20px;
+  top:20px;
+}
+.countdown-wrapper .imgWrap{
+  width:100%;
+  position: absolute;
+  z-index: -10;
+}
+.countdown-wrapper .imgWrap img{
+  width: 100%;
+}
+.countdown-wrapper .imgWrap .screen{
+  background: rgba(0,0,0,.3);
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  position: absolute;
+}
+.countdown-wrapper .header{
+  color:#FFF;
+  font-size:2em;
+}
+.countdown-wrapper .detailWrap{
+  background:#fff;
+  padding:2.5em;
 }

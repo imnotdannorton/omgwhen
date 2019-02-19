@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "dayjs": "^1.8.3",
     "firebase": "^5.8.2",
     "ics-js": "^0.10.2",
+    "lodash": "^4.17.11",
     "react": "^16.7.0",
     "react-datetime-picker": "^2.1.1",
     "react-dom": "^16.7.0",

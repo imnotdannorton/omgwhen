@@ -2,8 +2,9 @@ import React from 'react';
 import firestore from "./firestore";
 import firebase from 'firebase';
 import { Link } from 'react-router-dom';
-import DateTimePicker from 'react-datetime-picker'
-
+import DateTimePicker from 'react-datetime-picker';
+import GiphySearch from "./GiphySearch";
+import ImageSelect from "./ImageSelect";
 class Create extends React.Component {
     state = {
         bg_image: "",
@@ -14,15 +15,17 @@ class Create extends React.Component {
         slug: "",
         style: "",
         go_link:"",
+        external_image:false,
+
         target_time: new Date()
     }
     constructor(){
         super();
         this.fileInput = React.createRef();
-        
+        this.handleGiphy = this.handleGiphy.bind(this);
+        this.imgSelect = this.imgSelect.bind(this);
     }
     updateInput = e => {
-        console.log(e.target);
         if(e.target.name == 'bg_image'){
             this.setState({bg_image:this.fileInput.current.files[0]})
         }else{
@@ -32,22 +35,31 @@ class Create extends React.Component {
         }
         
     }
+    handleGiphy(url){
+        // setting external image will bypass upload process since we already have a giphy url
+        this.setState({bg_image:url, external_image:true});
+    }
     handleDate = e => {
         let targetDate = new Date(e);
         let ms = targetDate.getTime();
         console.log(e, ms);
         this.setState({target_time:targetDate})
     }
+    fileHandler = e => {
+        console.log('filehandler event ', e);
+        this.setState({bg_image:e.current.files[0]})
+    }
     submitForm = e => {
         e.preventDefault();
         // const db = firebase.firestore();
         // console.log(db);
         // const newCountdown = db.collection('countdowns');
-        if(this.state.bg_image){
+        if(this.state.headline.length < 2){
+            return
+        }
+        if(this.state.bg_image && !this.state.external_image){
             this.imageHandler(this.state.bg_image).then((success)=>{
-                    console.log('uploaded!', success);
                     success.ref.getDownloadURL().then( (downloadURL)=>{
-                        console.log('File available at', downloadURL);
                         this.setState({bg_image:downloadURL});
                         this.addRecord()
                     });
@@ -70,24 +82,23 @@ class Create extends React.Component {
             this.setState({go_link:'/until/'+this.state.slug});
         })
     }
+    imgSelect(val){
+        this.setState({imgSrc:val})
+    }
     imageHandler(file){
         const storageRef = firebase.storage().ref();
         let metaData = {
             contentType: 'image/jpeg'
         }
-        console.log(file);
         let uploadRef = storageRef.child('images/'+file.name).put(file, metaData);
         uploadRef.on('state_changed', function(snapshot){
             // Observe state change events such as progress, pause, and resume
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
             switch (snapshot.state) {
               case firebase.storage.TaskState.PAUSED: // or 'paused'
-                console.log('Upload is paused');
                 break;
               case firebase.storage.TaskState.RUNNING: // or 'running'
-                console.log('Upload is running');
                 break;
             }
           }, function(error) {
@@ -96,7 +107,6 @@ class Create extends React.Component {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             uploadRef.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-              console.log('File available at', downloadURL);
             //   this.setState({bg_image:downloadURL})
             });
           });
@@ -117,10 +127,10 @@ class Create extends React.Component {
         let showGoLink = this.state.go_link.length > 0;
         let goLink;
         if(showGoLink){
-            goLink = <button><Link to={this.state.go_link}>View</Link></button>
+            goLink = <Link to={this.state.go_link}><button>View</button></Link>
         }
         return (
-            <div class="formWrap">
+            <div className="formWrap">
                 <h1>It's All Happening. Create Your Event:</h1>
                 <form onSubmit={this.submitForm}>
                     <div className="headline inputHolder">
@@ -140,14 +150,25 @@ class Create extends React.Component {
                         <label for="slug">Give it a home. ex: omgwhen.io/until<em>my-awesome-party</em></label>
                         <input type="text" name="slug" placeholder="my-custom-link" onChange={this.updateInput}></input>
                     </div>
-                    <div className="image inputHolder">
-                        <label for="bg_image">Add an image and you're good to go</label>
-                        <input type="file" ref={this.fileInput} name="bg_image" placeholder="background" onChange={this.updateInput}></input>
-                    </div>
+                    <ImageSelect handleGiphy={this.handleGiphy} fileRef={this.fileHandler} updateInput={this.updateInput}></ImageSelect>
+                    {/* <div className="image inputHolder">
+                        <p>Add an image and you're good to go</p>
+                        <br/>
+                        <strong onClick={()=>this.imgSelect('upload')} className={this.state.imgSrc == 'upload' ? 'active' : ''}>Upload Image</strong>
+                        <strong onClick={()=>this.imgSelect('giphy')} className={this.state.imgSrc == 'giphy' ? 'active' : ''}>Search Giphy</strong>
+                        <div className={this.state.imgSrc+' imageOptsWrap'} >
+                            <div class="imageUpload">
+                                <input type="file" ref={this.fileInput} name="bg_image" className="imagePick" placeholder="background" onChange={this.updateInput}></input>
+                                <label for="bg_image">Upload Image</label>
+                            </div>
+                            <GiphySearch onGiphySearch={this.handleGiphy}></GiphySearch>
+                        </div>
+                        
+                    </div> */}
                     {/* <input type="text" name="style" placeholder="style" onChange={this.updateInput}></input>
                     
                     <input type="text" name="custom_styles" placeholder="custom" onChange={this.updateInput}></input> */}
-                    <button type="submit">Create</button>
+                    <button type="submit" className="createBtn">Create</button>
                     {goLink}
                 </form>
             </div>

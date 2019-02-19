@@ -2,13 +2,14 @@ import firebase, { firestore } from 'firebase';
 
 // Initialize Firebase
 var config = {
-    apiKey: "AIzaSyA2pAD1YepSVCF274vwxlZYLehAx10t0Lw",
-    authDomain: "omgwhen-61f63.firebaseapp.com",
-    databaseURL: "https://omgwhen-61f63.firebaseio.com",
-    projectId: "omgwhen-61f63",
-    storageBucket: "omgwhen-61f63.appspot.com",
-    messagingSenderId: "78642671620"
-  };
-  firebase.initializeApp(config);
+    apiKey: process.env.REACT_APP_FS_APIKEY,
+    authDomain: process.env.REACT_APP_FS_AUTHDOMAIN,
+    databaseURL: process.env.REACT_APP_FS_DBURL,
+    projectId: process.env.REACT_APP_FS_PROJECTID,
+    storageBucket: process.env.REACT_APP_FS_STORAGEBUCKET,
+    messagingSenderId: process.env.REACT_APP_FS_MESSAGE_SENDER_ID
+};
+console.log(process.env, config);
+firebase.initializeApp(config);
 
 export default firestore;

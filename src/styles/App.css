@@ -10,20 +10,134 @@
   justify-content: space-around;
   padding:5rem;
 }
-input[type="text"]{
+input[type="text"], textarea{
   padding:1.2rem;
   border:2px solid #fff;
   background:transparent;
   margin:4% 0;
   width:50%;
+  color:#fff;
 }
-input::placeholder {
+input::placeholder, textarea::placeholder {
   color:#fff;
   font-style:italic;
+}
+.inputHolder{
+  margin: 2% 0;
+  width:100%;
+  
+}
+.inputHolder.image{
+  overflow: hidden;
+}
+.inputHolder label{
+  display:block;
+}
+.inputHolder.image strong{
+  display:inline-block;
+  border-bottom:2px solid transparent;
+  margin-right: 10px;
+}
+.inputHolder.image strong.active{
+  border-bottom:2px solid #fff;
+}
+.imageOptsWrap{
+  padding:0;
+  /* border:2px solid #fff; */
+  background:transparent;
+  margin:4% 0;
+  width:200%;
+  display: inline-block;
+  transition:transform .3s;
+  /* cursor: pointer; */
+}
+.imageOptsWrap.giphy{
+  transform:translateX(-50%);
+}
+.imageUpload, .giphySearch{
+  width:50%;
+  display:inline-block;
+}
+.imageUpload{
+  border:2px solid #fff;
+  padding:2%;
+  margin-right:2%;
+  width:calc(44% - 4px);
+
+}
+.imagePick{
+  /* width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+  position: relative;
+  left: 0;
+  top:0;
+	z-index: -1; */
+}
+.imagePick + label {
+  /* padding:1.2rem;
+  border:2px solid #fff;
+  background:transparent;
+  margin:4% 0;
+  width:50%;
+  display: inline-block;
+  cursor: pointer; */
+}
+.resultsHolder{
+  display:none;
+  width:50%;
+  height: 300px;
+  position: relative;
+  overflow-y:scroll;
+  background: rgba(255, 255, 255, .3);
+  padding: 2%;
+}
+.resultsHolder ul{
+  list-style: none;
+  margin:0;
+  padding:0;
+}
+.resultsHolder ul li{
+  /* display: inline-block; */
+  float: left;
+  height: 100px;
+  width: 150px;
+  overflow: hidden;
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  margin: 0 1% 1% 0;
+  border:1px solid transparent;
+}
+.resultsHolder ul li:hover{
+  cursor: pointer;
+  border:1px solid #fff;
+}
+.resultsHolder.active{
+  display: inline-block;
 }
 input{
   display: inline-block;
 }
 #root{
   height: 100%;
+}
+.formWrap button.createBtn{
+  padding:1.2rem;
+  border:2px solid #fff;
+  background:transparent;
+  margin:4% 0;
+  width:50%;
+  display: block;
+  color:#FFF;
+}
+.formWrap button.createBtn:hover{
+  cursor: pointer;
+  color:purple;
+  background:#fff;
+}
+.calendarLinks a{
+  display: inline-block;
+  margin-right: 2%;
 }

@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import DateTimePicker from 'react-datetime-picker';
 import GiphySearch from "./GiphySearch";
 import ImageSelect from "./ImageSelect";
+import CountDetail from "./CountDetail";
+
 class Create extends React.Component {
     state = {
         bg_image: "",
@@ -16,7 +18,6 @@ class Create extends React.Component {
         style: "",
         go_link:"",
         external_image:false,
-
         target_time: new Date()
     }
     constructor(){
@@ -46,8 +47,13 @@ class Create extends React.Component {
         this.setState({target_time:targetDate})
     }
     fileHandler = e => {
-        console.log('filehandler event ', e);
         this.setState({bg_image:e.current.files[0]})
+    }
+    suggestSlug = e =>{
+        console.log('suggest slug event ', e, e.target.value);
+        let suggestedSlug = e.target.value.split(' ').join('-').toLowerCase();
+        console.log(suggestedSlug);
+        this.setState({slug:suggestedSlug});
     }
     submitForm = e => {
         e.preventDefault();
@@ -112,6 +118,13 @@ class Create extends React.Component {
           });
         return uploadRef
     }
+    renderPreview(){
+        if(this.state.bg_image){
+            return <CountDetail config={this.state}></CountDetail>
+        }else{
+            return null
+        }
+    }
     clearForm (){
         return {
             bg_image: "",
@@ -127,7 +140,7 @@ class Create extends React.Component {
         let showGoLink = this.state.go_link.length > 0;
         let goLink;
         if(showGoLink){
-            goLink = <Link to={this.state.go_link}><button>View</button></Link>
+            goLink = <Link to={this.state.go_link}><button class="createBtn">View</button></Link>
         }
         return (
             <div className="formWrap">
@@ -135,7 +148,7 @@ class Create extends React.Component {
                 <form onSubmit={this.submitForm}>
                     <div className="headline inputHolder">
                         <label for="headline">What's going on?</label>
-                        <input type="text" name="headline" placeholder="headline" onChange={this.updateInput}></input>
+                        <input type="text" name="headline" placeholder="headline" onBlur={this.suggestSlug} onChange={this.updateInput}></input>
                     </div>
                     <div className="timestamp inputHolder">
                         <label for="target_time">When?</label>
@@ -148,7 +161,7 @@ class Create extends React.Component {
                     
                     <div className="slug inputHolder">
                         <label for="slug">Give it a home. <small>ex: omgwhen.io/until/<em>my-awesome-party</em></small></label>
-                        <input type="text" name="slug" placeholder="my-custom-link" onChange={this.updateInput}></input>
+                        <input type="text" name="slug" placeholder={(this.state.slug == "") ? 'my-awesome-party':this.state.slug} value={this.state.slug} onChange={this.updateInput}></input>
                     </div>
                     <ImageSelect handleGiphy={this.handleGiphy} fileRef={this.fileHandler} updateInput={this.updateInput}></ImageSelect>
                     {/* <div className="image inputHolder">
@@ -171,6 +184,9 @@ class Create extends React.Component {
                     <button type="submit" className="createBtn">Create</button>
                     {goLink}
                 </form>
+                {/* <div className="previewWrap">
+                    {this.renderPreview()}
+                </div> */}
             </div>
             
         )

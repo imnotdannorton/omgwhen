@@ -61,9 +61,9 @@ class CalendarEvent extends React.Component {
     render(){
         return(
             <div className="calendarLinks">
-                <Link download={this.props.title} to={'data:text/calendar;charset=utf8,'+escape(this.state.ics)}>Save Event</Link>
-                
                 <a href={this.state.gcal}>Save To Google Calendar</a>
+
+                <a download={this.props.title+'.ics'} target="_blank" href={'data:text/calendar;charset=utf8,'+escape(this.state.ics)}>Save to iCal</a>
             </div>
             
         )

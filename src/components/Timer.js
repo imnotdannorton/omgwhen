@@ -8,7 +8,7 @@ class Timer extends React.Component {
     state = {
         target_datetime:null, 
         countdown_string:"",
-        offsets:null
+        offsets:{}
     }
     constructor(props){
         super(props);
@@ -33,17 +33,23 @@ class Timer extends React.Component {
         let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        let string = months+'months' + days+'days, '+hours+'hours, '+minutes+'minutes, '+seconds+'seconds';
+        let string = months+' months, ' + days+' days, '+hours+' hours, '+minutes+' minutes, '+seconds+' seconds';
+        let offsetObj = {months, days, hours, minutes, seconds }
+        // console.log(offsetObj);
         if(diff <= 0){
             string = "IT HAPPENED!";
         }
-        this.setState({countdown_string:string});
+        this.setState({countdown_string:string, offsets:offsetObj});
         // console.log(string);
 
     }
     render(){
         return(
-            <h3>{this.state.countdown_string}</h3>
+            <h3>
+                {Object.keys(this.state.offsets).map((keyName, i) => (
+                    <span className={this.state.offsets[keyName] > 0 ? '':'hidden'} >{this.state.offsets[keyName]} {keyName}</span>
+                ))}
+            </h3>
         )
     }
 }

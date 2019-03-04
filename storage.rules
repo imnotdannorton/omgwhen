@@ -1,0 +1,8 @@
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /images/{allPaths=**} {
+      allow read 
+      allow write
+    }
+  }
+}

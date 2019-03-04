@@ -10,17 +10,25 @@
   justify-content: space-around;
   padding:5rem;
 }
+.formWrap form{
+  width: 70%;
+}
 input[type="text"], textarea{
   padding:1.2rem;
   border:2px solid #fff;
   background:transparent;
   margin:4% 0;
-  width:50%;
+  width:100%;
   color:#fff;
+  font-weight: 900;
+}
+input[type="file"]{
+  display:none;
 }
 input::placeholder, textarea::placeholder {
   color:#fff;
   font-style:italic;
+  font-weight: 400;
 }
 .inputHolder{
   margin: 2% 0;
@@ -44,6 +52,16 @@ input::placeholder, textarea::placeholder {
 .inputHolder.image strong.active, .inputHolder.image strong:hover{
   border-bottom:2px solid #fff;
 }
+.inputHolder label.uploadImage{
+  border:2px solid #fff;
+  display:inline-block;
+  padding:1.2rem;
+}
+.inputHolder label.uploadImage:hover{
+  background: #FFF;
+  color:purple;
+  cursor: pointer;
+}
 .imageOptsWrap{
   padding:0;
   /* border:2px solid #fff; */
@@ -54,12 +72,16 @@ input::placeholder, textarea::placeholder {
   transition:transform .3s;
   /* cursor: pointer; */
 }
-.imageOptsWrap.giphy{
+.imageOptsWrap.upload{
   transform:translateX(-50%);
 }
 .imageUpload, .giphySearch{
   width:50%;
   display:inline-block;
+  vertical-align: text-top;
+}
+.giphySearch input{
+  width: 75%;
 }
 .imageUpload{
   border:2px solid #fff;
@@ -131,9 +153,13 @@ input{
   border:2px solid #fff;
   background:transparent;
   margin:4% 0;
-  width:50%;
+  /* width:50%; */
   display: block;
   color:#FFF;
+}
+a, a:visited{
+  text-decoration: none;
+  color:purple;
 }
 .formWrap button.createBtn:hover, .countdown-wrapper a.createNew button:hover{
   cursor: pointer;
@@ -143,6 +169,7 @@ input{
 .calendarLinks a{
   display: inline-block;
   margin-right: 2%;
+  color:purple;
 }
 .countdown-wrapper{
   display: flex;
@@ -154,11 +181,16 @@ input{
   position: absolute;
   right:20px;
   top:20px;
+  width:auto;
 }
 .countdown-wrapper .imgWrap{
   width:100%;
   position: absolute;
   z-index: -10;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 .countdown-wrapper .imgWrap img{
   width: 100%;
@@ -173,8 +205,32 @@ input{
 .countdown-wrapper .header{
   color:#FFF;
   font-size:2em;
+  text-align: center;
+  margin-top: 12.5%;
+}
+.countdown-wrapper h3 span{
+  display:inline-block;
+  margin-right: 3vw;
+}
+.countdown-wrapper h3 span:last-of-type{
+  margin-right: 0;
+}
+.countdown-wrapper h3 .hidden{
+  display:none;
 }
 .countdown-wrapper .detailWrap{
-  background:#fff;
-  padding:2.5em;
+  background: #fff;
+  padding: 1em 2.5em 2.5em 2.5em;
+  bottom: 5%;
+  left: 5%; 
+  width: calc(90% - 5em);
+  position: absolute;
+  text-align: center;
+}
+.countdown-wrapper .detailWrap a{
+  padding:.5vh;
+}
+.countdown-wrapper .detailWrap a:hover{
+  background: purple;
+  color:#fff;
 }

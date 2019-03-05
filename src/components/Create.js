@@ -6,7 +6,7 @@ import DateTimePicker from 'react-datetime-picker';
 import GiphySearch from "./GiphySearch";
 import ImageSelect from "./ImageSelect";
 import CountDetail from "./CountDetail";
-
+import TilesWrap from './TilesWrap';
 class Create extends React.Component {
     state = {
         bg_image: "",
@@ -184,9 +184,7 @@ class Create extends React.Component {
                     <button type="submit" className="createBtn">Create</button>
                     {goLink}
                 </form>
-                {/* <div className="previewWrap">
-                    {this.renderPreview()}
-                </div> */}
+                <TilesWrap></TilesWrap>
             </div>
             
         )

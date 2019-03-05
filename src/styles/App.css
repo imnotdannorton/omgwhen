@@ -12,16 +12,23 @@
 }
 .formWrap form{
   width: 70%;
+  z-index:20;
 }
 input[type="text"], textarea{
   padding:1.2rem;
   border:2px solid #fff;
   background:transparent;
   margin:4% 0;
-  width:100%;
-  color:#fff;
+  width:calc(100% - 2.4rem);
+  color:#FFF;
   font-weight: 900;
+  /* background-color: rgba(255,255,255,.3);
+  transition: background-color .3s; */
 }
+/* input[type="text"]:focus, textarea:focus {
+  background-color: rgba(255,255,255,1);
+
+ } */
 input[type="file"]{
   display:none;
 }
@@ -233,4 +240,32 @@ a, a:visited{
 .countdown-wrapper .detailWrap a:hover{
   background: purple;
   color:#fff;
+}
+.tilesWrap{
+  display:grid;
+  grid: repeat(50, 2vh) / repeat(50, 2vw);
+  position: fixed;
+  top:0px;
+  opacity: .4;
+  z-index:0;
+}
+.tilesWrap span{
+  display: inline-block;
+  background:#fff;
+  width: 20px;
+  height: 20px;
+  animation-name: spin;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  box-shadow: 0px 0px 4px rgba(0,0,0,.3);
+}
+@keyframes spin {
+  0%{
+    transform: rotate(0deg);
+    margin-top:0px;
+  }
+  100% {
+    transform: rotate(3600deg);
+    margin-top:-10px;
+  }
 }

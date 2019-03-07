@@ -4,7 +4,8 @@ import firebase from 'firebase';
 import CountDetail from './CountDetail';
 class Countdown extends React.Component {
     state = {
-        countdown:null
+        countdown:null,
+        errorSlug:null
     }
     constructor(props){
         super(props);
@@ -22,6 +23,8 @@ class Countdown extends React.Component {
             this.setState({
                 countdown:countObj.docs[0].data()
             })
+        }).catch(e => { 
+            this.setState({errorSlug:slug});
         });
     }
     componentDidMount() {
@@ -33,6 +36,8 @@ class Countdown extends React.Component {
         let contents;
         if (hasCountdown) {
             contents = <CountDetail config={this.state.countdown}></CountDetail>
+        }else if(this.state.errorSlug){
+            contents = <h3>OOPS! Could not find data for {this.state.errorSlug}</h3>
         }else{
             contents = <h3>LOADING</h3>
         }

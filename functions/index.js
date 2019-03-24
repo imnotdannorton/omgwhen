@@ -52,12 +52,11 @@ exports.metaReplace  = functions.https.onRequest((req, res) => {
 
 
 const defaultDesc = 'Quick, Whats the plan?';
-const defaultTitle = "OMG.IO | It's All Happening";
+const defaultTitle = "OMGWHEN | It's All Happening";
 const defaultLogo = 'https://example.com/images/headerHQ.jpg';
 
 const getOpenGraph = (org) => {
-	let og = `<meta property="fb:app_id" content="921373517372" />`;
-	og += `<meta property="og:type" content="website" />`;
+	let og = `<meta property="og:type" content="website" />`;
 
 	if (!org) {
 		og += `<meta property="og:title" content="${defaultTitle}" />`;

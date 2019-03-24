@@ -8,11 +8,13 @@
     "firebase": "^5.8.2",
     "ics-js": "^0.10.2",
     "lodash": "^4.17.11",
+    "moment": "^2.24.0",
     "react": "^16.7.0",
+    "react-datetime": "^2.16.3",
     "react-datetime-picker": "^2.1.1",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "@>=2.0.0"
+    "react-scripts": "^2.1.8"
   },
   "scripts": {
     "start": "react-scripts start",

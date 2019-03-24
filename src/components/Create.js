@@ -2,7 +2,8 @@ import React from 'react';
 import firestore from "./firestore";
 import firebase from 'firebase';
 import { Link } from 'react-router-dom';
-import DateTimePicker from 'react-datetime-picker';
+// import DateTimePicker from 'react-datetime-picker';
+import DateTime from 'react-datetime';
 import GiphySearch from "./GiphySearch";
 import ImageSelect from "./ImageSelect";
 import CountDetail from "./CountDetail";
@@ -17,6 +18,7 @@ class Create extends React.Component {
         slug: "",
         style: "",
         go_link:"",
+        visibility:'public',
         external_image:false,
         target_time: new Date()
     }
@@ -60,7 +62,7 @@ class Create extends React.Component {
         // const db = firebase.firestore();
         // console.log(db);
         // const newCountdown = db.collection('countdowns');
-        if(this.state.headline.length < 2){
+        if(this.state.headline.length < 2 || !this.state.bg_image){
             return
         }
         if(this.state.bg_image && !this.state.external_image){
@@ -152,7 +154,7 @@ class Create extends React.Component {
                     </div>
                     <div className="timestamp inputHolder">
                         <label for="target_time">When?</label>
-                        <DateTimePicker onChange={this.handleDate} value={this.state.target_time}></DateTimePicker>
+                        <DateTime onBlur={this.handleDate} value={this.state.target_time} closeOnSelect={true}></DateTime>
                     </div>
                     <div className="description inputHolder">
                         <label for="description">Y Tho?</label>
